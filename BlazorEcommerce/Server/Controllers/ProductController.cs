@@ -6,38 +6,31 @@ namespace BlazorEcommerce.Server.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private static List<Product> products = new List<Product>
+        private readonly IProductService _productService;
+
+        public ProductController(IProductService productService)
         {
-        new Product
-        {
-            Id = 1,
-            Title = "SMARTPHONE XIAOMI REDMI 9AS BLUE",
-            Description = "Le smartphone est devenu un objet indispensable car il nous permet de faire pleins de choses ! Mais quel système d’exploitation vous convient le mieux, vous prenez beaucoup de photos, vous regardez souvent des vidéos … ?",
-            ImageUrl = "https://www.vandenborre.be/WEB/images/products/300/xiaomi_redmi-9a-32gb-blue-2022_7923260_1.jpg",
-            Price = 208.99m
-        },
-        new Product
-        {
-            Id = 2,
-            Title = "SMARTPHONE XIAOMI REDMI 9A GREY",
-            Description = "Le smartphone est devenu un objet indispensable car il nous permet de faire pleins de choses ! Mais quel système d’exploitation vous convient le mieux, vous prenez beaucoup de photos, vous regardez souvent des vidéos … ?",
-            ImageUrl = "https://www.vandenborre.be/WEB/images/products/300/xiaomi_xiaomi-redmi-9a-32gb-grey_8187630_1.jpg",
-            Price = 214.99m
-        },
-        new Product
-        {
-            Id = 3,
-            Title = "SMARTPHONE MOTOROLA MOTO E32 SLATE GREY",
-            Description = "Le smartphone est devenu un objet indispensable car il nous permet de faire pleins de choses ! Mais quel système d’exploitation vous convient le mieux, vous prenez beaucoup de photos, vous regardez souvent des vidéos … ?",
-            ImageUrl = "https://www.vandenborre.be/WEB/images/products/300/motorola_moto-e32-slate-grey_7914768_1.jpg",
-            Price = 199.99m
+            _productService = productService;
         }
-        };
 
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> GetProduct()
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProducts()
         {
-            return Ok(products);
+            var response = await _productService.GetProductsAsyncs();
+
+            return Ok(response);
         }
+
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<List<Product>>> Get(int id)
+        //{
+        //    var hero = await _context.SuperHeroes.FindAsync(id);
+        //    if (hero == null)
+        //    {
+        //        return BadRequest("Hero not found.");
+        //    }
+
+        //    return Ok(hero);
+        //}
     }
 }
