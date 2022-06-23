@@ -16,21 +16,17 @@ namespace BlazorEcommerce.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProducts()
         {
-            var response = await _productService.GetProductsAsyncs();
+            var result = await _productService.GetProducts();
 
-            return Ok(response);
+            return Ok(result);
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<List<Product>>> Get(int id)
-        //{
-        //    var hero = await _context.SuperHeroes.FindAsync(id);
-        //    if (hero == null)
-        //    {
-        //        return BadRequest("Hero not found.");
-        //    }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ServiceResponse<Product>>> GetProduct(int id)
+        {
+            var result = await _productService.GetProduct(id);
 
-        //    return Ok(hero);
-        //}
+            return Ok(result);
+        }
     }
 }

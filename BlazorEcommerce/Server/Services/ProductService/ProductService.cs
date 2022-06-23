@@ -11,7 +11,7 @@ namespace BlazorEcommerce.Server.Services.ProductService
             _context = context;
         }
 
-        public async Task<ServiceResponse<List<Product>>> GetProductsAsyncs()
+        public async Task<ServiceResponse<List<Product>>> GetProducts()
         {
             var response = new ServiceResponse<List<Product>>()
             {
@@ -21,19 +21,23 @@ namespace BlazorEcommerce.Server.Services.ProductService
             return response;
         }
 
-        //        public async Task<ServiceResponse<List<Product>>> Get(int id)
-        //        {
-        //            var result = await _context.Products.FindAsync(id);
+        public async Task<ServiceResponse<Product>> GetProduct(int id)
+        {
+            var result = await _context.Products.FindAsync(id);
+            var response = new ServiceResponse<Product>();
 
-        //            if (result != null)
-        //            {
-        //var response = new ServiceResponse<List<Product>>()
-        //            {
-        //                Data = result
-        //            };
-        //            }
+            if (result == null)
+            {
+                response.Success = false;
+                response.Message = "Le produit n'a pas été trouvé";
+            }
+            else
+            {
+                response.Data = result;
+            }
 
-        //        }
+            return response;
+        }
 
     }
 }

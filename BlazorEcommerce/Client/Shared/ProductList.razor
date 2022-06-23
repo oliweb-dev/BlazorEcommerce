@@ -6,25 +6,25 @@
 }
 else
 {
-<ul class="list-unstyled">
-    @foreach (Product product in productService.Products)
-    {
-        <li class="media my-3">
-            <div class="media-img-wrapper ">
-                <a href="#"><img src="@product.ImageUrl" class="media-img" alt="@product.Title"></a>
-            </div>
-            <div class="media-body">
-                <a href="#">
-                    <h4>@product.Title</h4>
-                </a>
-                <p>@product.Description</p>
-                <div class="price">
-                    @product.Price €
+    <ul class="list-unstyled">
+        @foreach (Product product in productService.Products)
+        {
+            <li class="media my-3">
+                <div class="media-img-wrapper ">
+                    <a href="/product/@product.Id"><img src="@product.ImageUrl" class="media-img" alt="@product.Title"></a>
                 </div>
-            </div>
-        </li>
-    }
-</ul>
+                <div class="media-body">
+                    <a href="/product/@product.Id">
+                        <h4>@product.Title</h4>
+                    </a>
+                    <p>@product.Description</p>
+                    <div class="price">
+                        @product.Price €
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
 }
 @code {
 
